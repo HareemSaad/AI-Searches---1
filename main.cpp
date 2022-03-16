@@ -14,61 +14,6 @@ struct Node {
 
 struct Node* Root = NULL;
 
-//for stack
-struct StackNode {
-    struct Node* BTNode = NULL; //data
-    struct StackNode* link; //link
-};//*start = NULL;
-
-struct StackNode* top = NULL; // global variable top, equate top with null
-
-//input 1,2 ;; stack output 2,1
-void push(struct Node* NewNode) {
-    struct StackNode* temp;                                  // declare temp node type pointer variable
-    temp = new StackNode;
-    temp->BTNode = NewNode;
-    temp->link=NULL;
-    if (top == NULL) {
-        top = temp;
-    } else {
-        temp->link = top;
-        top = temp;
-    }
-}
-
-void PrintStack() {
-    if(top==NULL) {
-        printf("list empty");
-    } else {
-        int a = 0;
-        printf("\nyour list is... ");
-        struct StackNode* curr = top; //declare node type pointer variable curr with assigned value of start
-        while(curr!=NULL) {
-            printf("%d ", curr->BTNode->data);
-            curr = curr->link;
-        }
-    }
-}
-
-int pop() {
-    struct StackNode* curr = top; //declare node type pointer variable curr with assigned value of start
-    int flag=0;
-
-    if (top==NULL) {
-        printf("stack underflow");
-    } else {
-        top = curr->link;
-        int a = curr ->BTNode->data;
-        delete(curr);
-        flag=1;
-        return a;
-    }
-    if(flag==0) {
-        printf("\nYour value does not exist \n");
-    }
-    return -1;
-}
-
 //for queue
 struct QueueNode
 {
@@ -140,21 +85,13 @@ struct Node* Insert(struct Node* node, int data) {
 
 int LevelOfTree(struct Node* node)
 {
-  // Root being null means tree doesn't exist.
   if (node == NULL)
     return 0;
 
-  // Get the depth of the left and right subtree
-  // using recursion.
   int leftDepth = LevelOfTree(node->LeftChild);
   int rightDepth = LevelOfTree(node->RightChild);
-
-  // Choose the larger one and add the root to it.
+  
   return max(leftDepth, rightDepth) + 1;
-//  if (leftDepth > rightDepth)
-//    return leftDepth;
-//  else
-//    return rightDepth;
 }
 
 void BFS(struct Node* curr) {
